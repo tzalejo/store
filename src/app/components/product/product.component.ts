@@ -21,15 +21,15 @@ export class ProductComponent implements OnInit {
   fecha = new Date();
 
   constructor() {
-    console.log('1 - constructor');
+
   }
 
   ngOnInit() {
-    console.log('3- oninit', this.product);
+
   }
 
   addCart() {
-    console.log('añadir al carrito');
+    // console.log('añadir al carrito');
     this.productoClick.emit(this.product.id);
   }
 
