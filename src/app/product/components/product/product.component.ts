@@ -1,4 +1,4 @@
-import { Product } from '../../product.model';
+import { Product } from '../../../product.model';
 import {
   Component,
   OnInit,
@@ -19,16 +19,10 @@ export class ProductComponent implements OnInit {
   @Output() productoClick: EventEmitter<any> = new EventEmitter(); // indicamos el tipo :
 
   fecha = new Date();
+  constructor() {}
+  ngOnInit() { }
 
-  constructor() {
-
-  }
-
-  ngOnInit() {
-
-  }
-
-  addCart() {
+  addCard() {
     // console.log('añadir al carrito');
     this.productoClick.emit(this.product.id);
   }

@@ -1,33 +1,37 @@
-import { ProductsComponent } from './components/products/products.component';
-// import { HomeComponent } from './components/home/componentes/home/home.component';
-import { ContactComponent } from './components/contact/contact.component';
-import { DemoComponent } from './components/demo/demo.component';
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-import { PageNotFountComponent } from './components/page-not-fount/page-not-fount.component';
-import { ProductDetailComponent } from './components/product-detail/product-detail.component';
-import { LayoutComponent } from './components/layout/layout.component';
+import { PageNotFountComponent } from './page-not-fount/components/page-not-fount/page-not-fount.component';
+import { LayoutComponent } from './layout/layout.component';
+import { AdminGuard } from './admin.guard';
 
+// import { DemoComponent } from './demo/components/demo/demo.component';
+// import { ProductsComponent } from './product/components/products/products.component';
+// import { ProductDetailComponent } from './product/components/product-detail/product-detail.component';
+// import { HomeComponent } from './components/home/componentes/home/home.component';
+// import { ContactComponent } from './contact/components/contact.component';
 
 const routes: Routes = [
   {path: '' ,component:LayoutComponent,  children:[
 
-    {path: '' ,redirectTo: 'home',pathMatch: 'full',},
-    {path: 'home' ,loadChildren: () => import('./components/home/home.module').then(m => m.HomeModule) },
-    {path: 'products', component: ProductsComponent},
-    {path: 'contacts', component: ContactComponent},
-    {path: 'products/:id', component: ProductDetailComponent },
+    {path: '' ,redirectTo: 'home',pathMatch: 'full' },
+    {path: 'home' ,loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
 
+    // {path: 'products', component: ProductsComponent},
+    // {path: 'products/:id', component: ProductDetailComponent },
+    {path: 'products', canActivate: [AdminGuard] ,loadChildren: () => import('./product/product.module').then(m => m.ProductModule) },
+
+    {path: 'contacts', canActivate: [AdminGuard] ,loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule) },
+
+    {path: 'demo', canActivate: [AdminGuard] , loadChildren: () => import('./demo/demo.module').then(m => m.DemoModule) },
   ]},
-  {path: 'demo', component: DemoComponent },
-  {path: '**', component:  PageNotFountComponent}
+  {path: '**', loadChildren: ()=> import('./page-not-fount/page-not-fount.module').then(m => m.PageNotFountModule)}
 
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes,
-    {preloadingStrategy: PreloadAllModules})], // escogemos 
+    {preloadingStrategy: PreloadAllModules})], // escogemos
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
