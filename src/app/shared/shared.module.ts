@@ -9,6 +9,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ExponentialPipe } from './pipes/exponential/exponential.pipe';
 //directives
 import { HighlightDirective } from './directives/highlight/highlight.directive';
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { HighlightDirective } from './directives/highlight/highlight.directive';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    MaterialModule
 
   ]
 })
